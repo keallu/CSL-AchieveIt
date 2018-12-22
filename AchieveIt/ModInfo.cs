@@ -33,7 +33,7 @@ namespace AchieveIt
             
             selected = ModConfig.Instance.Enabled;
 
-            group.AddCheckbox("Achievements enabled (requires reload if you are in-game)", selected, sel =>
+            group.AddCheckbox("Achievements enabled", selected, sel =>
             {
                 ModConfig.Instance.Enabled = sel;
                 ModConfig.Instance.Save();

@@ -4,9 +4,6 @@ using ColossalFramework.Plugins;
 using ColossalFramework.UI;
 using Harmony;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
 using UnityEngine;
 
 namespace AchieveIt
@@ -43,26 +40,6 @@ namespace AchieveIt
             catch (Exception e)
             {
                 Debug.Log("[Achieve It!] LoadPanelPatch:Postfix -> Exception: " + e.Message);
-            }
-        }
-    }
-
-    [HarmonyPatch(typeof(UnlockingPanel), "MilestoneUpdated")]
-    public static class UnlockingPanelPatch
-    {
-        static void Postfix()
-        {
-            try
-            {
-                if (ModConfig.Instance.Enabled)
-                {
-                    UIButton button = GameObject.Find("Achievements").GetComponent<UIButton>();
-                    button.isEnabled = true;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.Log("[Achieve It!] UnlockingPanelPatch:Postfix -> Exception: " + e.Message);
             }
         }
     }

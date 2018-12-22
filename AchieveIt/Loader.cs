@@ -1,4 +1,4 @@
-﻿using ColossalFramework;
+﻿using ColossalFramework.UI;
 using ICities;
 using System;
 using UnityEngine;
@@ -9,6 +9,7 @@ namespace AchieveIt
     public class Loader : LoadingExtensionBase
     {
         private LoadMode _loadMode;
+        private GameObject _gameObject;
 
         public override void OnLevelLoaded(LoadMode mode)
         {
@@ -21,9 +22,12 @@ namespace AchieveIt
                     return;
                 }
 
-                if (ModConfig.Instance.Enabled)
+                UIView objectOfType = UnityEngine.Object.FindObjectOfType<UIView>();
+                if (objectOfType != null)
                 {
-                    Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.False;
+                    _gameObject = new GameObject("AchieverTool");
+                    _gameObject.transform.parent = objectOfType.transform;
+                    _gameObject.AddComponent<AchieverTool>();
                 }
             }
             catch (Exception e)
@@ -41,10 +45,12 @@ namespace AchieveIt
                     return;
                 }
 
-                if (ModConfig.Instance.Enabled)
+                if (_gameObject == null)
                 {
-                    Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.True;
+                    return;
                 }
+
+                UnityEngine.Object.Destroy(_gameObject);
             }
             catch (Exception e)
             {
