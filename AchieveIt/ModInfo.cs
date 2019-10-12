@@ -9,18 +9,26 @@ namespace AchieveIt
         public string Name => "Achieve It!";
         public string Description => "Enables achievements while also playing with mods.";
 
+        public HarmonyInstance harmony;
+
         public void OnEnabled()
         {
-            var harmony = HarmonyInstance.Create("com.github.keallu.csl.achieveit");
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
+            harmony = HarmonyInstance.Create("com.github.keallu.csl.achieveit");
+
+            if (harmony != null)
+            {
+                harmony.PatchAll(Assembly.GetExecutingAssembly());
+            }
 
             ModConfig.Instance.Enabled = true;
         }
 
         public void OnDisabled()
         {
-            var harmony = HarmonyInstance.Create("com.github.keallu.csl.achieveit");
-            harmony.UnpatchAll();
+            if (harmony != null)
+            {
+                harmony.UnpatchAll();
+            }
 
             ModConfig.Instance.Enabled = false;
         }

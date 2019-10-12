@@ -55,9 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AchieverTool.cs" />
+    <Compile Include="ModManager.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Loader.cs" />
+    <Compile Include="Loading.cs" />
     <Compile Include="ModConfig.cs" />
     <Compile Include="ModInfo.cs" />
     <Compile Include="Patches.cs" />
