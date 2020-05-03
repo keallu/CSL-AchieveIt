@@ -6,6 +6,8 @@ namespace AchieveIt
 {
     public class ModInfo : IUserMod
     {
+        private readonly string _harmonyId = "com.github.keallu.csl.achieveit";
+
         public string Name => "Achieve It!";
         public string Description => "Enables achievements while also playing with mods.";
 
@@ -13,7 +15,7 @@ namespace AchieveIt
 
         public void OnEnabled()
         {
-            Harmony = HarmonyInstance.Create("com.github.keallu.csl.achieveit");
+            Harmony = HarmonyInstance.Create(_harmonyId);
 
             if (Harmony != null)
             {
@@ -27,7 +29,8 @@ namespace AchieveIt
         {
             if (Harmony != null)
             {
-                Harmony.UnpatchAll();
+                Harmony.UnpatchAll(_harmonyId);
+                Harmony = null;
             }
 
             ModConfig.Instance.Enabled = false;
