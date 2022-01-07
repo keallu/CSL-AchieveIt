@@ -1,6 +1,5 @@
-﻿using Harmony;
+﻿using CitiesHarmony.API;
 using ICities;
-using System.Reflection;
 
 namespace AchieveIt
 {
@@ -9,25 +8,32 @@ namespace AchieveIt
         public string Name => "Achieve It!";
         public string Description => "Enables achievements while also playing with mods.";
 
-        public HarmonyInstance Harmony;
+        //public Harmony Harmony;
 
         public void OnEnabled()
         {
-            Harmony = HarmonyInstance.Create("com.github.keallu.csl.achieveit");
+            //Harmony = new Harmony("com.github.keallu.csl.achieveit");
 
-            if (Harmony != null)
-            {
-                Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            }
+            //if (Harmony != null)
+            //{
+            //    Harmony.PatchAll(Assembly.GetExecutingAssembly());
+            //}
+
+            HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
 
             ModConfig.Instance.Enabled = true;
         }
 
         public void OnDisabled()
         {
-            if (Harmony != null)
+            //if (Harmony != null)
+            //{
+            //    Harmony.UnpatchAll();
+            //}
+
+            if (HarmonyHelper.IsHarmonyInstalled)
             {
-                Harmony.UnpatchAll();
+                Patcher.UnpatchAll();
             }
 
             ModConfig.Instance.Enabled = false;
@@ -40,7 +46,6 @@ namespace AchieveIt
             bool selected;
             
             selected = ModConfig.Instance.Enabled;
-
             group.AddCheckbox("Achievements enabled", selected, sel =>
             {
                 ModConfig.Instance.Enabled = sel;

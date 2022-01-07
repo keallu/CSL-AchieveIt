@@ -2,7 +2,7 @@
 using ColossalFramework.Globalization;
 using ColossalFramework.Plugins;
 using ColossalFramework.UI;
-using Harmony;
+using HarmonyLib;
 using System;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace AchieveIt
                     UISprite m_AchNope = comp.parent.Find<UISprite>("AchNope");
                     UIComponent m_Ach = comp.parent.Find("Ach");
                     UIComponent m_AchAvLabel = comp.parent.Find("AchAvLabel");
-                                
+
                     m_AchNope.isVisible = false;
                     string tooltip = string.Empty;
 
