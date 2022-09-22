@@ -9,6 +9,24 @@ namespace AchieveIt
     {
         private bool _initialized;
 
+        private UnlockingPanel _unlockingPanel;
+        private UITabstrip _tabstrip;
+        private UIButton _achievements;
+
+        public void Start()
+        {
+            try
+            {
+                _unlockingPanel = GameObject.Find("UnlockingPanel").GetComponent<UnlockingPanel>();
+                _tabstrip = _unlockingPanel.Find("Tabstrip").GetComponent<UITabstrip>();
+                _achievements = _tabstrip.Find("Achievements").GetComponent<UIButton>();
+            }
+            catch (Exception e)
+            {
+                Debug.Log("[Achieve It!] ModManager:Start -> Exception: " + e.Message);
+            }
+        }
+
         public void Update()
         {
             try
@@ -40,11 +58,9 @@ namespace AchieveIt
                     Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.True;
                 }
 
-                UIButton button = GameObject.Find("Achievements").GetComponent<UIButton>();
-
-                if (button != null)
+                if (_achievements != null)
                 {
-                    button.isEnabled = ModConfig.Instance.Enabled;
+                    _achievements.isEnabled = ModConfig.Instance.Enabled;
                 }
             }
             catch (Exception e)
