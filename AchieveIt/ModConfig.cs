@@ -4,7 +4,7 @@
     public class ModConfig
     {
         public bool ConfigUpdated { get; set; }
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
         
         private static ModConfig instance;
 
